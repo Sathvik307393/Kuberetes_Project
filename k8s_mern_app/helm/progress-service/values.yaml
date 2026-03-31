@@ -61,6 +61,11 @@ env:
       secretKeyRef:
         name: mongodb-secret
         key: progress-db-uri
+  - name: JWT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: auth-service-secret
+        key: jwt-secret
   - name: REDIS_HOST
     value: "redis"
   - name: REDIS_PORT
