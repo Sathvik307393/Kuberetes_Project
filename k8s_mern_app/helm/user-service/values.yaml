@@ -7,7 +7,8 @@ strategy:
   maxUnavailable: 0
 
 image:
-  repository: user-service
+  repository: aswin018/k8s_mern_app_user-service
+  tag: v3
   pullPolicy: IfNotPresent
 
 container:

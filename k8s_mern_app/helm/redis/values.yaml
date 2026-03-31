@@ -52,6 +52,11 @@ startupProbe:
 
 env: []
 
+persistence:
+  enabled: false
+  storageClass: local-path
+  size: 1Gi
+
 autoscaling:
   enabled: false
   minReplicas: 1

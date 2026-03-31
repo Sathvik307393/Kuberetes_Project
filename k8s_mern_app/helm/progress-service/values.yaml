@@ -7,7 +7,8 @@ strategy:
   maxUnavailable: 0
 
 image:
-  repository: progress-service
+  repository: aswin018/k8s_mern_app_progress-service
+  tag: v3
   pullPolicy: IfNotPresent
 
 container:

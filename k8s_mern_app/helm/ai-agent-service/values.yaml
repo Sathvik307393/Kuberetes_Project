@@ -7,7 +7,8 @@ strategy:
   maxUnavailable: 0
 
 image:
-  repository: ai-agent-service
+  repository: aswin018/k8s_mern_app_ai-agent-service
+  tag: v5
   pullPolicy: IfNotPresent
 
 container:

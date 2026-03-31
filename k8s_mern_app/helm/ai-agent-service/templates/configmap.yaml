@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ai-agent-config
+  namespace: fit-forge
+data:
+  llm-model: "gemini-pro"
