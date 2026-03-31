@@ -55,7 +55,3 @@ ai-agent-service:
 redis:
   enabled: true
   replicaCount: 1
-
-otel-collector:
-  enabled: true
-  replicaCount: 1

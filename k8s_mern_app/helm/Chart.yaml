@@ -38,7 +38,3 @@ dependencies:
     version: 0.1.0
     repository: file://./redis
     condition: redis.enabled
-  - name: otel-collector
-    version: 0.1.0
-    repository: file://./otel-collector
-    condition: otel-collector.enabled
