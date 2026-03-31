@@ -1,5 +1,5 @@
 apiVersion: v2
-name: fitforge-frontend
+name: frontend
 description: Frontend Helm chart for FitForge application
 type: application
 version: 0.1.0
