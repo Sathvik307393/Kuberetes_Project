@@ -1,26 +1,22 @@
 # Default values for redis.
 replicaCount: 1
 
+strategy:
+  type: RollingUpdate
+  maxSurge: 1
+  maxUnavailable: 0
+
 image:
   repository: redis
   pullPolicy: IfNotPresent
-  tag: "7.2-alpine"
 
-# Service account disabled - no RBAC needed
-serviceAccount:
-  create: false
-
-podAnnotations: {}
-podLabels: {}
-
-podSecurityContext: {}
-
-securityContext: {}
+container:
+  name: redis
 
 service:
   type: ClusterIP
   port: 6379
-  targetPort: 6379
+  targetport: 6379
 
 resources:
   limits:
@@ -30,7 +26,6 @@ resources:
     cpu: 100m
     memory: 128Mi
 
-# Health probes
 livenessProbe:
   tcpSocket:
     port: 6379
@@ -55,20 +50,17 @@ startupProbe:
   timeoutSeconds: 3
   failureThreshold: 30
 
+env: []
+
 autoscaling:
   enabled: false
   minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 80
 
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}
-
-persistence:
+trivy:
   enabled: false
-  storageClass: ""
-  accessMode: ReadWriteOnce
-  size: 1Gi
+  severity: HIGH,CRITICAL
+  scanType: fs
+  ignoreUnfixed: false

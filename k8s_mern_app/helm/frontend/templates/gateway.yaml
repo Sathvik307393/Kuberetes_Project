@@ -1,49 +1,73 @@
-{{- if .Values.gateway.enabled }}
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: {{ .Values.gateway.name }}
-  labels:
-    {{- include "frontend.labels" . | nindent 4 }}
+  name: k-gateway
+  namespace: mern
 spec:
-  gatewayClassName: {{ .Values.gateway.gatewayClassName }}
+  gatewayClassName: k-gateway-class
   listeners:
-    {{- range .Values.gateway.listeners }}
-    - name: {{ .name }}
-      protocol: {{ .protocol }}
-      port: {{ .port }}
-      {{- if .hostname }}
-      hostname: {{ .hostname | quote }}
-      {{- end }}
-    {{- end }}
+    - name: http
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: same
 ---
-{{- range .Values.gateway.httproutes }}
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: {{ .name }}
-  labels:
-    {{- include "frontend.labels" $ | nindent 4 }}
+  name: mern-http-route
+  namespace: mern
 spec:
   parentRefs:
-    - name: {{ $.Values.gateway.name }}
-  hostnames:
-    {{- range .hostnames }}
-    - {{ . | quote }}
-    {{- end }}
+    - name: k-gateway
   rules:
-    {{- range .rules }}
     - matches:
-        {{- range .matches }}
         - path:
-            type: {{ .path.type }}
-            value: {{ .path.value }}
-        {{- end }}
+            type: PathPrefix
+            value: /
       backendRefs:
-        {{- range .backendRefs }}
-        - name: {{ .name }}
-          port: {{ .port }}
-        {{- end }}
-    {{- end }}
-{{- end }}
-{{- end }}
+        - name: frontend
+          port: 80
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /ai
+      backendRefs:
+        - name: ai
+          port: 5001
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /auth
+      backendRefs:
+        - name: authorization
+          port: 5002
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /nutrition
+      backendRefs:
+        - name: nutrition
+          port: 5003
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /progress
+      backendRefs:
+        - name: progress
+          port: 5004
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /workout
+      backendRefs:
+        - name: workout
+          port: 5005
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /user
+      backendRefs:
+        - name: user
+          port: 5006

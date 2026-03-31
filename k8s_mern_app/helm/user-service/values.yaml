@@ -1,26 +1,22 @@
 # Default values for user-service.
 replicaCount: 1
 
+strategy:
+  type: RollingUpdate
+  maxSurge: 1
+  maxUnavailable: 0
+
 image:
   repository: user-service
   pullPolicy: IfNotPresent
-  tag: "latest"
 
-# Service account disabled - no RBAC needed
-serviceAccount:
-  create: false
-
-podAnnotations: {}
-podLabels: {}
-
-podSecurityContext: {}
-
-securityContext: {}
+container:
+  name: user-service
 
 service:
   type: ClusterIP
   port: 5002
-  targetPort: 5002
+  targetport: 5002
 
 resources:
   limits:
@@ -30,7 +26,6 @@ resources:
     cpu: 250m
     memory: 256Mi
 
-# Health probes
 livenessProbe:
   httpGet:
     path: /health
@@ -58,29 +53,6 @@ startupProbe:
   timeoutSeconds: 3
   failureThreshold: 30
 
-autoscaling:
-  enabled: true
-  minReplicas: 2
-  maxReplicas: 10
-  targetCPUUtilizationPercentage: 70
-  targetMemoryUtilizationPercentage: 80
-
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}
-
-# NFS Storage Configuration
-nfs:
-  enabled: true
-  server: "13.232.245.215"
-  path: "/nfs-storage"
-  storageClassName: "mongo-nfs-storage"
-  size: "1Gi"
-  mountPath: "/app/data"
-  accessMode: "ReadWriteMany"
-
 env:
   - name: PORT
     value: "5002"
@@ -94,3 +66,16 @@ env:
       secretKeyRef:
         name: auth-secret
         key: jwt-secret
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 80
+
+trivy:
+  enabled: false
+  severity: HIGH,CRITICAL
+  scanType: fs
+  ignoreUnfixed: false
