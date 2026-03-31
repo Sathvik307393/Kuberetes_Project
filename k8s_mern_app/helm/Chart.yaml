@@ -1,0 +1,44 @@
+apiVersion: v2
+name: fitforge
+description: A Helm chart for FitForge Application - Complete microservices stack
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+
+dependencies:
+  - name: frontend
+    version: 0.1.0
+    repository: file://./frontend
+    condition: frontend.enabled
+  - name: auth-service
+    version: 0.1.0
+    repository: file://./auth-service
+    condition: auth-service.enabled
+  - name: user-service
+    version: 0.1.0
+    repository: file://./user-service
+    condition: user-service.enabled
+  - name: workout-service
+    version: 0.1.0
+    repository: file://./workout-service
+    condition: workout-service.enabled
+  - name: nutrition-service
+    version: 0.1.0
+    repository: file://./nutrition-service
+    condition: nutrition-service.enabled
+  - name: progress-service
+    version: 0.1.0
+    repository: file://./progress-service
+    condition: progress-service.enabled
+  - name: ai-agent-service
+    version: 0.1.0
+    repository: file://./ai-agent-service
+    condition: ai-agent-service.enabled
+  - name: redis
+    version: 0.1.0
+    repository: file://./redis
+    condition: redis.enabled
+  - name: otel-collector
+    version: 0.1.0
+    repository: file://./otel-collector
+    condition: otel-collector.enabled

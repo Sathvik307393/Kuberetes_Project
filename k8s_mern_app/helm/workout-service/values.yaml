@@ -1,0 +1,96 @@
+# Default values for workout-service.
+replicaCount: 1
+
+image:
+  repository: workout-service
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+# Service account disabled - no RBAC needed
+serviceAccount:
+  create: false
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 5003
+  targetPort: 5003
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+# Health probes
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 5003
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /health
+    port: 5003
+  initialDelaySeconds: 10
+  periodSeconds: 5
+  timeoutSeconds: 3
+  failureThreshold: 3
+
+startupProbe:
+  httpGet:
+    path: /health
+    port: 5003
+  initialDelaySeconds: 10
+  periodSeconds: 5
+  timeoutSeconds: 3
+  failureThreshold: 30
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# NFS Storage Configuration
+nfs:
+  enabled: true
+  server: "13.232.245.215"
+  path: "/nfs-storage"
+  storageClassName: "mongo-nfs-storage"
+  size: "1Gi"
+  mountPath: "/app/data"
+  accessMode: "ReadWriteMany"
+
+env:
+  - name: PORT
+    value: "5003"
+  - name: MONGO_URI
+    valueFrom:
+      secretKeyRef:
+        name: mongodb-secret
+        key: workout-db-uri
+  - name: JWT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: auth-secret
+        key: jwt-secret

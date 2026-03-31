@@ -1,0 +1,61 @@
+# Default values for fitforge umbrella chart
+
+namespace: fit-forge
+
+# Enable/disable individual components
+frontend:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: fitforge-frontend
+    tag: latest
+
+auth-service:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: auth-service
+    tag: latest
+
+user-service:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: user-service
+    tag: latest
+
+workout-service:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: workout-service
+    tag: latest
+
+nutrition-service:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: nutrition-service
+    tag: latest
+
+progress-service:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: progress-service
+    tag: latest
+
+ai-agent-service:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: ai-agent-service
+    tag: latest
+
+redis:
+  enabled: true
+  replicaCount: 1
+
+otel-collector:
+  enabled: true
+  replicaCount: 1
