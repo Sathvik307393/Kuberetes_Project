@@ -73,8 +73,8 @@ persistence:
 # This prevents noisy-neighbor issues and ensures predictable performance.
 resources:
   requests:
-    cpu: 500m
-    memory: 1Gi
+    cpu: 250m
+    memory: 512Mi
   limits:
     cpu: 500m
     memory: 1Gi
@@ -94,8 +94,8 @@ metrics:
   # Resources for the exporter sidecar (also Guaranteed QoS).
   resources:
     requests:
-      cpu: 100m
-      memory: 128Mi
+      cpu: 50m
+      memory: 64Mi
     limits:
       cpu: 100m
       memory: 128Mi
