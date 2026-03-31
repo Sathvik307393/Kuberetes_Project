@@ -63,9 +63,9 @@ replicaSetName: rs0
 # Uses the existing NFS dynamic provisioner StorageClass.
 persistence:
   enabled: true
-  storageClass: mongo-nfs-storage
+  storageClass: local-path
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   size: 5Gi
 
 # ── Resources (Guaranteed QoS) ──────────────────────────────────────────────
