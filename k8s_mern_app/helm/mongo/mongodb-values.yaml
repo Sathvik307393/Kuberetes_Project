@@ -65,7 +65,7 @@ persistence:
   enabled: true
   storageClass: local-path
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   size: 5Gi
 
 # ── Resources (Guaranteed QoS) ──────────────────────────────────────────────

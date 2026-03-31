@@ -7,50 +7,50 @@ frontend:
   enabled: true
   replicaCount: 1
   image:
-    repository: fitforge-frontend
-    tag: latest
+    repository: aswin018/k8s_mern_app_frontend
+    tag: v3
 
 auth-service:
   enabled: true
   replicaCount: 1
   image:
-    repository: auth-service
-    tag: latest
+    repository: aswin018/k8s_mern_app_auth-service
+    tag: v3
 
 user-service:
   enabled: true
   replicaCount: 1
   image:
-    repository: user-service
-    tag: latest
+    repository: aswin018/k8s_mern_app_user-service
+    tag: v3
 
 workout-service:
   enabled: true
   replicaCount: 1
   image:
-    repository: workout-service
-    tag: latest
+    repository: aswin018/k8s_mern_app_workout-service
+    tag: v3
 
 nutrition-service:
   enabled: true
   replicaCount: 1
   image:
-    repository: nutrition-service
-    tag: latest
+    repository: aswin018/k8s_mern_app_nutrition-service
+    tag: v3
 
 progress-service:
   enabled: true
   replicaCount: 1
   image:
-    repository: progress-service
-    tag: latest
+    repository: aswin018/k8s_mern_app_progress-service
+    tag: v3
 
 ai-agent-service:
   enabled: true
   replicaCount: 1
   image:
-    repository: ai-agent-service
-    tag: latest
+    repository: aswin018/k8s_mern_app_ai-agent-service
+    tag: v5
 
 redis:
   enabled: true
