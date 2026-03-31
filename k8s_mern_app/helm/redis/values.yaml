@@ -55,6 +55,7 @@ env: []
 persistence:
   enabled: false
   storageClass: local-path
+  accessMode: ReadWriteOnce
   size: 1Gi
 
 autoscaling:
